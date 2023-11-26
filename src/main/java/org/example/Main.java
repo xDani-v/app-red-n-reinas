@@ -42,7 +42,8 @@ public class Main {
 
         IChromosome Indmasapto = poblacion.getFittestChromosome();
 
-        imprimirCromosoma(Indmasapto);
+        //imprimirCromosoma(Indmasapto);
+        imprimirTablero(Indmasapto);
 
     }
 
@@ -59,6 +60,31 @@ public class Main {
         System.out.println("Posiciones de las reinas:");
         for (int i = 0; i < longitud; i++) {
             System.out.println("Columna " + (i + 1) + ": Fila " + posiciones[i]);
+        }
+    }
+
+    private static void imprimirTablero(IChromosome cromosoma) {
+        int longitud = cromosoma.getGenes().length;
+        int[] posiciones = new int[longitud];
+
+        // Obtener las posiciones de las reinas desde el cromosoma
+        for (int i = 0; i < longitud; i++) {
+            posiciones[i] = (Integer) cromosoma.getGene(i).getAllele();
+        }
+
+        // Imprimir el tablero
+        System.out.println("Tablero:");
+        for (int i = 0; i < longitud; i++) {
+            for (int j = 0; j < longitud; j++) {
+                if (posiciones[i] == j + 1) {
+                    // Imprimir Q (reina) si hay una reina en esta posición
+                    System.out.print(" Q ");
+                } else {
+                    // Imprimir espacio en blanco si no hay reina en esta posición
+                    System.out.print(" - ");
+                }
+            }
+            System.out.println(); // Nueva línea después de cada fila
         }
     }
 }

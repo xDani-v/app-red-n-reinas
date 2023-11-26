@@ -3,6 +3,9 @@ package org.example;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FAptitud extends FitnessFunction {
 
     public double evaluate(IChromosome cromosoma) {
@@ -33,7 +36,13 @@ public class FAptitud extends FitnessFunction {
             }
         }
 
+        // Verificar restricción vertical
+        Set<Integer> posicionesUnicas = new HashSet<>();
+        for (int posicion : posiciones) {
+            posicionesUnicas.add(posicion);
+        }
+
         // La aptitud es inversamente proporcional al número de conflictos
-        return 1.0 / (conflictos + 1);
+        return posicionesUnicas.size() == longitud ? 1.0 / (conflictos + 1) : 0.0;
     }
 }
